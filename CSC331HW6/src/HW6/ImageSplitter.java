@@ -173,4 +173,8 @@ public class ImageSplitter {
 		}
 
 	}
+	
+	public BufferedImage[] getSplitImages(){
+		return null;
+	}
 }

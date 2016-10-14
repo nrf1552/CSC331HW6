@@ -1,12 +1,19 @@
 package HW6;
 
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class ImageViewer {
 
-	public JFrame frame;
+	JFrame frame;
+	MathEngine engine;
+	ImageSplitter splitter;
+	BufferedImage[] images;
+	
 	
 	public ImageViewer() {
 		// Instantiate JFrame
@@ -29,6 +36,13 @@ public class ImageViewer {
 	public void displayImageComponents(){
 		
 		Dimension size = frame.getSize();
+		
+		images = new ImageSplitter(16,"picture1").getSplitImages();
+		
+		for(BufferedImage img: images){
+			ImageComponent image = new ImageComponent(img, 16, 1);
+			
+		}
 		
 		
 	}
