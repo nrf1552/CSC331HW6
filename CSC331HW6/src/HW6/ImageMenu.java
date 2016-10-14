@@ -105,6 +105,8 @@ public class ImageMenu {
 
 		menu.add(submenu);
 		
+		menu.addSeparator();
+		
 		// exit menu item
 		menuitem = new JMenuItem("Exit");
 		menu.add(menuitem);
