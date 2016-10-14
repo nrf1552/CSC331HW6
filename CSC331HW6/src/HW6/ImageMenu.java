@@ -28,7 +28,6 @@ public class ImageMenu {
 		JRadioButtonMenuItem radioItem;
 
 		menuBar = new JMenuBar();
-
 		menu = new JMenu("Menu");
 		menuBar.add(menu);
 

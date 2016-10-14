@@ -15,7 +15,7 @@ public class Engine {
 		ImageViewer viewer = new ImageViewer();
 
 		// split image into equally sized pieces
-
+				
 		// get initial layer
 
 		// cover initial layer with math problem layer

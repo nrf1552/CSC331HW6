@@ -1,5 +1,7 @@
 package HW6;
 
+import java.awt.Dimension;
+
 import javax.swing.*;
 
 public class ImageViewer {
@@ -7,6 +9,7 @@ public class ImageViewer {
 	public JFrame frame;
 	
 	public ImageViewer() {
+		// Instantiate JFrame
 		frame = new JFrame("Homework 6");
 		
 		// Set initial properties
@@ -18,6 +21,15 @@ public class ImageViewer {
 		
 		// Show it
 		frame.setVisible(true);
+		
+		// Show image components
+		displayImageComponents();
 	}
-
+	
+	public void displayImageComponents(){
+		
+		Dimension size = frame.getSize();
+		
+		
+	}
 }

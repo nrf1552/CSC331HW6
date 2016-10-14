@@ -28,8 +28,7 @@ public class ImageSplitter {
 	private static BufferedImage img = null;
 	private static File f = null;
 
-	private static BufferedImage topLeftImg = null;// works for 2x2, 3x3 and 4x4
-													// grid
+	private static BufferedImage topLeftImg = null;// works for 2x2, 3x3 and 4x4 grid
 	private static BufferedImage topLeftMidImg = null; // works for 4x4 grid
 	private static BufferedImage topMidImg = null; // works for 3x3 grid
 	private static BufferedImage topRightMidImg = null;// works for 4x4 grid
