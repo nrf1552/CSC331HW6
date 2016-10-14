@@ -11,7 +11,8 @@ public class Engine {
 	}
 
 	public static void main(String[] args) {
-		new ImageViewer();
+		// instantiate viewer
+		ImageViewer viewer = new ImageViewer();
 
 		// split image into equally sized pieces
 

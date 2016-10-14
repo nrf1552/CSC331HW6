@@ -63,10 +63,10 @@ public class ImageSplitter {
 	// @param none
 	// @return none
 	// @see original image and image split in four
-	public ImageSplitter(int userIn, String f) {
+	public ImageSplitter(int userIn, String file) {
 
 		try {
-			img = ImageIO.read(new File(f));
+			img = ImageIO.read(new File(file));
 			JFrame frame = new JFrame();
 			frame.getContentPane().setLayout(new FlowLayout());
 			frame.getContentPane().add(new JLabel(new ImageIcon(img)));
@@ -90,34 +90,12 @@ public class ImageSplitter {
 			}
 
 			else if (userIn == 9) {
-				topLeftImg = img.getSubimage(0, 0, (width / 2), (height / 2)); // x-y
-																				// coords
-																				// for
-																				// top
-																				// left
-																				// at
-																				// (0,0)
-				topMidImg = img.getSubimage((width / 3), 0, (width / 3), (height / 3)); // x
-																						// coord
-																						// is
-																						// 1/3
-																						// of
-																						// the
-																						// total
-																						// width
-																						// of
-																						// img
-				topRightImg = img.getSubimage(((width / 3) * 2), 0, (width / 3), (height / 3)); // x-coord
-																								// starts
-																								// at
-																								// 1/3
-																								// of
-																								// the
-																								// total
-																								// width
-																								// multiplied
-																								// by
-																								// 2
+				// x-y coords for top left at (0,0)
+				topLeftImg = img.getSubimage(0, 0, (width / 2), (height / 2)); 
+				// x coord is 1/3 of the total width of img
+				topMidImg = img.getSubimage((width / 3), 0, (width / 3), (height / 3));
+				 // x-coord starts at 1/3 of the total width multiplied by 2
+				topRightImg = img.getSubimage(((width / 3) * 2), 0, (width / 3), (height / 3));
 
 				midLeftImg = img.getSubimage(0, (height / 3), (width / 3), (height / 3));
 				middleImg = img.getSubimage((width / 3), (height / 3), (width / 3), (height / 3));
@@ -144,34 +122,12 @@ public class ImageSplitter {
 			}
 
 			else if (userIn == 16) {
-				topLeftImg = img.getSubimage(0, 0, (width / 2), (height / 2)); // x-y
-																				// coords
-																				// for
-																				// top
-																				// left
-																				// at
-																				// (0,0)
-				topLeftMidImg = img.getSubimage((width / 3), 0, (width / 3), (height / 3)); // x
-																							// coord
-																							// is
-																							// 1/3
-																							// of
-																							// the
-																							// total
-																							// width
-																							// of
-																							// img
-				topRightMidImg = img.getSubimage(((width / 3) * 2), 0, (width / 3), (height / 3)); // x-coord
-																									// starts
-																									// at
-																									// 1/3
-																									// of
-																									// the
-																									// total
-																									// width
-																									// multiplied
-																									// by
-																									// 2
+				// x-y coords for top left at (0,0)
+				topLeftImg = img.getSubimage(0, 0, (width / 2), (height / 2)); 
+				 // x coord is 1/3 of the total width of img
+				topLeftMidImg = img.getSubimage((width / 3), 0, (width / 3), (height / 3));
+				// x-coord starts at 1/3 of the total width multiplied by 2
+				topRightMidImg = img.getSubimage(((width / 3) * 2), 0, (width / 3), (height / 3)); 
 				topRightImg = img.getSubimage(((width / 3) * 2), 0, (width / 3), (height / 3));
 
 				topMidLeftImg = img.getSubimage(0, (height / 4), (width / 4), (height / 4));
