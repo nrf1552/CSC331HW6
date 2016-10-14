@@ -1,5 +1,7 @@
 package HW6;
 
+//anything
+
 import java.util.Random;
 import java.util.Scanner;
 
