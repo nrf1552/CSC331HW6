@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class MathEngine {
 	
-	private int fixedNum;
-	private int randomNum;
+	private static int fixedNum;
+	private static int randomNum;
 	
 	public MathEngine() {
 		// TODO Auto-generated constructor stub
@@ -19,12 +19,12 @@ public class MathEngine {
 		//Creates a fixed variable based on the user's input
 		System.out.println("What number would you like your questions to be based on? (0 - 12): ");
 		Scanner range = new Scanner(System.in);
-		int fixedNum = range.nextInt();
+		fixedNum = range.nextInt();
 		System.out.println(fixedNum);
 		
 		//Create random number between 1 and 12
 		int maxRange = 12;
-		int randomNum = (int) (Math.random() * maxRange + 1);
+		randomNum = (int) (Math.random() * maxRange + 1);
 		System.out.println(randomNum);
 		
 		//Let user decide if they want to add or subtract
@@ -32,16 +32,16 @@ public class MathEngine {
 		Scanner user = new Scanner(System.in);
 		int userNum = user.nextInt();
 		if (userNum == 1) {
-			//addSubtract();
+			addSubtract();
 		}
 		
 		else if (userNum == 2) {
-			//multDivide();
+			multDivide();
 		}
 		
 	}
 	
-	public int addSubtract() {
+	public static int addSubtract() {
 		
 		//Random addsubInteger = new Random();
 		int addsubInteger = (int) (Math.random() * 2 + 1);
@@ -59,7 +59,7 @@ public class MathEngine {
 		
 	} 
 	
-	public int multDivide() {
+	public static int multDivide() {
 		
 		//Random multdivInteger = new Random;
 		int multdivInteger = (int) (Math.random() * 2 + 1);
@@ -75,6 +75,14 @@ public class MathEngine {
 			return fixedNum / randomNum;
 		}
 		
+	}
+	
+	public String getProblem() {
+		//return string representation of that problem
+	}
+	
+	private boolean isCorrect() {
+		//returns if user's answer is true or false
 	}
 	
 }
