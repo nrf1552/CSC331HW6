@@ -77,12 +77,12 @@ public class MathEngine {
 		
 	}
 	
-	public String getProblem() {
-		//return string representation of that problem
-	}
+	//public String getProblem() {
+		//return string representation of that problem.
+	//}
 	
-	private boolean isCorrect() {
+	//private boolean isCorrect() {
 		//returns if user's answer is true or false
-	}
+	//}
 	
 }
