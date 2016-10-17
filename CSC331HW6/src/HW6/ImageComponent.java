@@ -10,21 +10,33 @@ public class ImageComponent {
 	JFrame imageLayer;
 	JFrame mathLayer;
 	JFrame solidLayer;
+	
+	String problem;
 
 
 	public ImageComponent(BufferedImage image, int userInput, int mathType) {
 		math = new MathEngine();
+		problem = math.getProblem();
+		
+		showImageLayer();
 	}
 	
-	public void showImageLayer(){
+	private void showImageLayer(){
 		
 	}
 	
-	public void showMathLayer(){
+	private void showMathLayer(){		
+		//display problem
+		
+		//get user input
+		
+		if (math.isCorrect(6)){
+			showImageLayer();
+		}
 
 	}
 	
-	public void showSolidLayer(){
+	private void showSolidLayer(){
 		
 	}
 
