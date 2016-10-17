@@ -9,12 +9,16 @@ import javax.swing.*;
 
 public class ImageViewer {
 
+	public int selectedNumber;
+	public int selectedNumberOfProblems;
+	public String selectedMath;
+	public String selectedImage;
+	
 	JFrame frame;
 	MathEngine engine;
 	ImageSplitter splitter;
 	BufferedImage[] images;
-	
-	
+		
 	public ImageViewer() {
 		// Instantiate JFrame
 		frame = new JFrame("Homework 6");
@@ -37,12 +41,10 @@ public class ImageViewer {
 		
 		Dimension size = frame.getSize();
 		
-		images = new ImageSplitter(16,"picture1").getSplitImages();
 		
-		for(BufferedImage img: images){
-			ImageComponent image = new ImageComponent(img, 16, 1);
-			
-		}
+		
+		//images = new ImageSplitter(16,"picture1").getSplitImages();
+		
 		
 		
 	}

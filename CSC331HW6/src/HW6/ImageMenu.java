@@ -1,6 +1,7 @@
 package HW6;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.*;
@@ -10,8 +11,7 @@ public class ImageMenu {
 	JTextArea output;
 	JScrollPane scrollPane;
 
-	String[] images = { "Spring", "Summer", "Fall", "Winter" };
-	String[] imageFiles = { "Spring.jpg", "Summer.jpg", "Fall.jpg", "Winter.jpg" };
+	String[] images = { "Spring.jpg", "Summer.jpg", "Fall.jpg", "Winter.jpg" };
 
 	int[] numberOfProblems = { 4, 9, 16 };
 	String[] calculationType = {"Add/Subtract","Multiply/Divide"};
@@ -34,10 +34,18 @@ public class ImageMenu {
 		// Create sub menu for all available images
 		submenu = new JMenu("Select an image");
 		for (int i = 0; i < images.length; i++) {
-			menuitem = new JMenuItem(images[i], acceleratorKeyCodeTracker + i);
+			menuitem = new JMenuItem(images[i].replaceAll(".jpg", ""), acceleratorKeyCodeTracker + i);
 			acceleratorKeyCodeTracker += i;
 			menuitem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1 + i, ActionEvent.ALT_MASK));
 			submenu.add(menuitem);
+			
+			final int index = i;
+			menuitem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					viewer.selectedImage = images[index];
+					viewer.displayImageComponents();
+				}
+			});
 		}
 		menu.add(submenu);
 
@@ -48,6 +56,13 @@ public class ImageMenu {
 			acceleratorKeyCodeTracker += i;
 			menuitem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1 + i, ActionEvent.ALT_MASK));
 			submenu.add(menuitem);
+			
+			final int index = i;
+			menuitem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					viewer.selectedNumberOfProblems = numberOfProblems[index];
+				}
+			});
 		}
 		menu.add(submenu);
 
@@ -62,6 +77,13 @@ public class ImageMenu {
 			}
 			radiogroup.add(radioItem);
 			submenu.add(radioItem);
+			
+			final int index = i;
+			radioItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					viewer.selectedNumber = index;
+				}
+			});
 		}		
 		submenu.addSeparator();
 		radiogroup = new ButtonGroup();
@@ -69,6 +91,13 @@ public class ImageMenu {
 			radioItem = new JRadioButtonMenuItem(calculationType[i]);
 			radiogroup.add(radioItem);
 			submenu.add(radioItem);
+			
+			final int index = i;
+			radioItem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					viewer.selectedMath = calculationType[index];
+				}
+			});
 		}
 		menu.add(submenu);
 		menu.addSeparator();
@@ -76,6 +105,11 @@ public class ImageMenu {
 		// exit menu item
 		menuitem = new JMenuItem("Exit");
 		menu.add(menuitem);
+		menuitem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
 
 		return menuBar;
 	}
