@@ -16,9 +16,9 @@ public class ImageComponent {
 
 	public ImageComponent(BufferedImage image, int userInput, int mathType) {
 		math = new MathEngine();
-		problem = math.getProblem();
+		//problem = math.getProblem();
 		
-		showImageLayer();
+		showTopLayer();
 	}
 	
 	private void showImageLayer(){
@@ -30,13 +30,13 @@ public class ImageComponent {
 		
 		//get user input
 		
-		if (math.isCorrect(6)){
-			showImageLayer();
-		}
+		//if (math.isCorrect(6)){
+			//showImageLayer();
+		//}
 
 	}
 	
-	private void showSolidLayer(){
+	private void showTopLayer(){
 		
 	}
 
