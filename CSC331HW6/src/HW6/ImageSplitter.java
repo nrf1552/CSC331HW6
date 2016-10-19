@@ -1,9 +1,15 @@
 package HW6;
 
 import java.awt.FlowLayout;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -24,157 +30,77 @@ import javax.swing.JLabel;
 // to change target image syntax needs to be change
 
 public class ImageSplitter {
+	
+	/**
+	 * provided a file directory route this method will create an array of subimages and return
+	 * it within an Image array
+	 * @param userIn
+	 * @param file
+	 * @param save
+	 * @return Images[]
+	 */
+	private static Image[] splitImage(int userIn, String file, boolean save){
+		int rows = 0, col = 0;
+		//initializes the row and column value needed for subimage creation based on userIn
+		if(userIn==4){
+			rows=2;
+			col=2;
+		}
+		else if(userIn==9){
+			rows=3;
+			col=3;
+		}
+		else if(userIn==16){
+			rows=4;
+			col=4;
+		}
+		//BufferedImage array that will hold the subimages
+		BufferedImage[] imgs=new BufferedImage[rows*col];
+		//Image array that will be returned containing subimages
+		Image[] images=new Image[rows*col];
+		
+		try{
+			File filename=new File(file);
+			FileInputStream fis = new FileInputStream(filename);
+			BufferedImage image = ImageIO.read(fis);
+			
+			int pieceWidth = image.getWidth() / col; //gets total width for subimage divisiom
+			int pieceHeight = image.getHeight() / rows; // and total height for subimage division
 
-	private static BufferedImage img = null;
-	private static File f = null;
-
-	private static BufferedImage topLeftImg = null;// works for 2x2, 3x3 and 4x4 grid
-	private static BufferedImage topLeftMidImg = null; // works for 4x4 grid
-	private static BufferedImage topMidImg = null; // works for 3x3 grid
-	private static BufferedImage topRightMidImg = null;// works for 4x4 grid
-	private static BufferedImage topRightImg = null;// works for 2x2, 3x3 and
-													// 4x4 grid
-
-	private static BufferedImage topMidLeftImg = null; // works for 4x4 grid
-	private static BufferedImage topMidLeftMidImg = null;// works for 4x4 grid
-	private static BufferedImage topMidRightMidImg = null;// works for 4x4 grid
-	private static BufferedImage topMidRightImg = null;// works for 4x4 grid
-
-	private static BufferedImage midLeftImg = null;// works for 3x3 grid
-	private static BufferedImage middleImg = null;// works for 3x3 grid
-	private static BufferedImage midRightImg = null;// works for 3x3 grid
-
-	private static BufferedImage botMidLeftImg = null; // works for 4x4 grid
-	private static BufferedImage botMidLeftMidImg = null;// works for 4x4 grid
-	private static BufferedImage botMidRightMidImg = null;// works for 4x4 grid
-	private static BufferedImage botMidRightImg = null;// works for 4x4 grid
-
-	private static BufferedImage botLeftImg = null; // works for 2x2, 3x3 and
-													// 4x4 grid
-	private static BufferedImage botLeftMidImg = null; // for 4x4 grid
-	private static BufferedImage botMidImg = null; // for 3x3 grid
-	private static BufferedImage botRightMidImg = null; // for 4x4 grid
-	private static BufferedImage botRightImg = null; // works for 2x2, 3x3 and
-														// 4x4 grid
-
-	// Takes image file and split it into four
-
-	// @param none
-	// @return none
-	// @see original image and image split in four
-	public ImageSplitter(int userIn, String file) {
-
-		try {
-			img = ImageIO.read(new File(file));
-			JFrame frame = new JFrame();
-			frame.getContentPane().setLayout(new FlowLayout());
-			frame.getContentPane().add(new JLabel(new ImageIcon(img)));
-
-			int height = img.getHeight();
-			int width = img.getWidth();
-
-			if (userIn == 4) {
-				topLeftImg = img.getSubimage(0, 0, (width / 2), (height / 2));
-				topRightImg = img.getSubimage((width / 2), 0, (width / 2), (height / 2));
-
-				botLeftImg = img.getSubimage(0, (height / 2), (width / 2), (height / 2));
-				botRightImg = img.getSubimage((width / 2), (height / 2), (width / 2), (height / 2));
-
-				frame.getContentPane().add(new JLabel(new ImageIcon(topLeftImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(topRightImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(botLeftImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(botRightImg)));
-				frame.pack();
-				frame.setVisible(true);
+			for (int x = 0; x < rows; x++) {
+				for (int y = 0; y < col; y++) {
+					// initializes and creates an image array by creating a new subimage in each iteration
+					// of y by multiplying the userInput value rows to the x value being iterated
+					imgs[x * rows + y] = new BufferedImage(pieceWidth, pieceHeight, image.getType());
+					// draws the image piece
+					Graphics2D gr = imgs[x * rows + y].createGraphics();
+					gr.drawImage(image, 0, 0, pieceWidth, pieceHeight, pieceWidth * y, pieceHeight * x,
+							pieceWidth * y + pieceWidth, pieceHeight * x + pieceHeight, null);
+					gr.dispose();
+				}
+			
 			}
-
-			else if (userIn == 9) {
-				// x-y coords for top left at (0,0)
-				topLeftImg = img.getSubimage(0, 0, (width / 2), (height / 2)); 
-				// x coord is 1/3 of the total width of img
-				topMidImg = img.getSubimage((width / 3), 0, (width / 3), (height / 3));
-				 // x-coord starts at 1/3 of the total width multiplied by 2
-				topRightImg = img.getSubimage(((width / 3) * 2), 0, (width / 3), (height / 3));
-
-				midLeftImg = img.getSubimage(0, (height / 3), (width / 3), (height / 3));
-				middleImg = img.getSubimage((width / 3), (height / 3), (width / 3), (height / 3));
-				midRightImg = img.getSubimage(((width / 3) * 2), (height / 3), (width / 3), (height / 3));
-
-				botLeftImg = img.getSubimage(0, (height / 2), (width / 3), (height / 3));
-				botMidImg = img.getSubimage((width / 3), ((height / 3) * 2), (width / 3), (height / 3));
-				botRightImg = img.getSubimage(((width / 3) * 2), ((height / 3) * 2), (width / 3), (height / 3));
-
-				frame.getContentPane().add(new JLabel(new ImageIcon(topLeftImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(topMidImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(topRightImg)));
-
-				frame.getContentPane().add(new JLabel(new ImageIcon(midLeftImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(middleImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(midRightImg)));
-
-				frame.getContentPane().add(new JLabel(new ImageIcon(botLeftImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(botMidImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(botRightImg)));
-				frame.pack();
-				frame.setVisible(true);
-
-			}
-
-			else if (userIn == 16) {
-				// x-y coords for top left at (0,0)
-				topLeftImg = img.getSubimage(0, 0, (width / 2), (height / 2)); 
-				 // x coord is 1/3 of the total width of img
-				topLeftMidImg = img.getSubimage((width / 3), 0, (width / 3), (height / 3));
-				// x-coord starts at 1/3 of the total width multiplied by 2
-				topRightMidImg = img.getSubimage(((width / 3) * 2), 0, (width / 3), (height / 3)); 
-				topRightImg = img.getSubimage(((width / 3) * 2), 0, (width / 3), (height / 3));
-
-				topMidLeftImg = img.getSubimage(0, (height / 4), (width / 4), (height / 4));
-				topMidLeftMidImg = img.getSubimage((width / 4), (height / 4), (width / 4), (height / 4));
-				topMidRightMidImg = img.getSubimage(((width / 4) * 2), (height / 4), (width / 4), (height / 4));
-				topMidRightImg = img.getSubimage(((width / 4) * 3), (height / 4), (width / 4), (height / 4));
-
-				botMidLeftImg = img.getSubimage(0, ((height / 4) * 2), (width / 4), (height / 4));
-				botMidLeftMidImg = img.getSubimage((width / 4), ((height / 4) * 2), (width / 4), (height / 4));
-				botMidRightMidImg = img.getSubimage(((width / 4) * 2), ((height / 4) * 2), (width / 4), (height / 4));
-				botMidRightImg = img.getSubimage(((width / 4) * 3), ((height / 4) * 2), (width / 4), (height / 4));
-
-				botLeftImg = img.getSubimage(0, ((height / 4) * 3), (width / 4), (height / 4));
-				botLeftMidImg = img.getSubimage((width / 4), ((height / 4) * 3), (width / 4), (height / 4));
-				botRightMidImg = img.getSubimage(((width / 4) * 2), ((height / 4) * 3), (width / 4), (height / 4));
-				botRightImg = img.getSubimage(((width / 4) * 3), ((height / 4) * 3), (width / 4), (height / 4));
-
-				frame.getContentPane().add(new JLabel(new ImageIcon(topLeftImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(topLeftMidImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(topRightMidImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(topRightImg)));
-
-				frame.getContentPane().add(new JLabel(new ImageIcon(topMidLeftImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(topMidLeftMidImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(topMidRightMidImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(topMidRightImg)));
-
-				frame.getContentPane().add(new JLabel(new ImageIcon(botMidLeftImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(botMidLeftMidImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(botMidRightMidImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(botMidRightImg)));
-
-				frame.getContentPane().add(new JLabel(new ImageIcon(botLeftImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(botLeftMidImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(botRightMidImg)));
-				frame.getContentPane().add(new JLabel(new ImageIcon(botRightImg)));
-				frame.pack();
-				frame.setVisible(true);
+			System.out.println("Code has been reached, subimages created");
+			if (save) {
+				// writing mini images into image files
+				String name = file.split(".")[0];
+				for (int i = 0; i < imgs.length; i++) {
+					ImageIO.write(imgs[i], "jpg", new File(name + i + ".jpg"));
+				}
+				System.out.println("Mini images saved to file");
 			}
 		}
-
-		catch (IOException e) {
+		catch(IOException e){
 			e.printStackTrace();
 		}
+		//this for loop iterates over the array of bufferedImages and creates an identical Image array
+		for(int i = 0; i < rows*col; i++)
+			images[i] = (Image) imgs[i];
+		
+		
+		return images;
+	}
 
-	}
-	
-	public BufferedImage[] getSplitImages(){
-		return null;
-	}
+
 }
+
