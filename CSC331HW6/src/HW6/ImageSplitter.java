@@ -23,7 +23,7 @@ import javax.swing.JLabel;
  * @author Jimmy Silva
  *
  */
-//another comment to test commit
+//another comment to test commit changes
 // Open an image file, create a grid 2 x 2 and
 // save each portion of the grid as an separate image file (makes 4)
 // displays the original image and the 4 new image
