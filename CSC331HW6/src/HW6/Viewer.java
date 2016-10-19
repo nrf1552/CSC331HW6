@@ -16,45 +16,49 @@ public class Viewer {
 	public String selectedMath;
 	public String selectedImage;
 
-	JFrame frame;
+	JFrame outerFrame;
 	MathEngine engine;
 	ImageSplitter splitter;
 	BufferedImage[] images;
+	JPanel imagePanel;
 	JLabel imageHolder;
-	
 
 	public Viewer() {
 		// Instantiate JFrame
-		frame = new JFrame("Homework 6");
+		outerFrame = new JFrame("Homework 6");
 
 		// Set initial properties
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1200, 800);
+		outerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		outerFrame.setSize(1200, 800);
 
 		// Add menu
-		frame.setJMenuBar(new ViewerMenu().menu(this));
+		outerFrame.setJMenuBar(new ViewerMenu().menu(this));
 
 		// Add image component so that it can be easily updated
+		imagePanel = new JPanel();
 		imageHolder = new JLabel();
-		frame.add(imageHolder);
-		
+		outerFrame.add(imageHolder);
+
 		// Show it
-		frame.setVisible(true);
-				
+		outerFrame.setVisible(true);
+
 		// Show image components
 		displayImageComponents();
 	}
 
 	public void displayImageComponents() {
 
-		if (selectedNumber != null && selectedNumberOfProblems != null && selectedMath != null && selectedImage != null) {
-			imageHolder.setIcon(getIcon(selectedImage));
+		if (allOptionsSelected()) {
+			
+			images = [];
 
+			imageHolder.setIcon(getIcon(selectedImage));
+			
 			// images = new ImageSplitter(16,"picture1").getSplitImages();
 		}
 	}
-	
-	private ImageIcon getIcon(String imagePath){
+
+	private ImageIcon getIcon(String imagePath) {
 		File imgFile = new File(imagePath);
 		Image img = null;
 
@@ -63,11 +67,18 @@ public class Viewer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return new ImageIcon(img);
 	}
-	
-	public static void main(String[] args){
+
+	private boolean allOptionsSelected() {
+		return (selectedNumber != null 
+				&& selectedNumberOfProblems != null 
+				&& selectedMath != null
+				&& selectedImage != null);
+	}
+
+	public static void main(String[] args) {
 		new Viewer();
 	}
 }
