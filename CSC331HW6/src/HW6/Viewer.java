@@ -34,7 +34,7 @@ public class Viewer {
 		// Add menu
 		frame.setJMenuBar(new ViewerMenu().menu(this));
 
-		// Add image component
+		// Add image component so that it can be easily updated
 		imageHolder = new JLabel();
 		frame.add(imageHolder);
 		
