@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 
-public class ImageMenu {
+public class ViewerMenu {
 
 	JTextArea output;
 	JScrollPane scrollPane;
@@ -19,7 +19,7 @@ public class ImageMenu {
 	int acceleratorKeyCodeTracker = KeyEvent.VK_1;
 	int mnemonicKeyCode = KeyEvent.VK_1;
 
-	public JMenuBar menu(ImageViewer viewer) {
+	public JMenuBar menu(Viewer viewer) {
 		JMenuBar menuBar;
 		JMenu menu;
 		JMenu submenu;
@@ -39,7 +39,7 @@ public class ImageMenu {
 			menuitem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1 + i, ActionEvent.ALT_MASK));
 			submenu.add(menuitem);
 			
-			final int index = i;
+			final int index = i;// needed to pass iterator into ActionListener 
 			menuitem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					viewer.selectedImage = images[index];
@@ -57,10 +57,11 @@ public class ImageMenu {
 			menuitem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1 + i, ActionEvent.ALT_MASK));
 			submenu.add(menuitem);
 			
-			final int index = i;
+			final int index = i;// needed to pass iterator into ActionListener 
 			menuitem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					viewer.selectedNumberOfProblems = numberOfProblems[index];
+					viewer.displayImageComponents();
 				}
 			});
 		}
@@ -78,10 +79,11 @@ public class ImageMenu {
 			radiogroup.add(radioItem);
 			submenu.add(radioItem);
 			
-			final int index = i;
+			final int index = i;// needed to pass iterator into ActionListener 
 			radioItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					viewer.selectedNumber = index;
+					viewer.displayImageComponents();
 				}
 			});
 		}		
@@ -92,10 +94,11 @@ public class ImageMenu {
 			radiogroup.add(radioItem);
 			submenu.add(radioItem);
 			
-			final int index = i;
+			final int index = i;// needed to pass iterator into ActionListener 
 			radioItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					viewer.selectedMath = calculationType[index];
+					viewer.displayImageComponents();
 				}
 			});
 		}
