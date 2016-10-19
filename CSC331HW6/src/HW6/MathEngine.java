@@ -9,6 +9,9 @@ public class MathEngine {
 	
 	private static int fixedNum;
 	private static int randomNum;
+	private static int userAnswer;
+	private static int answer;
+	private static String problem;
 	
 	public MathEngine() {
 		// TODO Auto-generated constructor stub
@@ -39,9 +42,15 @@ public class MathEngine {
 			multDivide();
 		}
 		
+		System.out.println("Type your answer here: ");
+		Scanner number = new Scanner(System.in);
+		userAnswer = number.nextInt();
+		
+		getProblem();
+		isCorrect();
 	}
 	
-	public static int addSubtract() {
+	public static void addSubtract() {
 		
 		//Random addsubInteger = new Random();
 		int addsubInteger = (int) (Math.random() * 2 + 1);
@@ -49,17 +58,19 @@ public class MathEngine {
 		
 		if (addsubInteger == 1) {
 			System.out.println(fixedNum + " + " + randomNum);
-			return fixedNum + randomNum;
+			problem = fixedNum + " + " + randomNum;
+			answer = fixedNum + randomNum;
 		}
 		
 		else {
 			System.out.println(fixedNum + " - " + randomNum);
-			return fixedNum - randomNum;
+			problem = fixedNum + " - " + randomNum;
+			answer = fixedNum - randomNum;
 		}
 		
 	} 
 	
-	public static int multDivide() {
+	public static void multDivide() {
 		
 		//Random multdivInteger = new Random;
 		int multdivInteger = (int) (Math.random() * 2 + 1);
@@ -67,22 +78,39 @@ public class MathEngine {
 		
 		if (multdivInteger == 1) {
 			System.out.println(fixedNum + " * " + randomNum);
-			return fixedNum * randomNum;
+			problem = fixedNum + " * " + randomNum;
+			answer = fixedNum * randomNum;
 		}
 		
 		else {
 			System.out.println(fixedNum + " / " + randomNum);
-			return fixedNum / randomNum;
+			problem = fixedNum + " / " + randomNum;
+			answer = fixedNum / randomNum;
 		}
 		
 	}
 	
-	//public String getProblem() {
+	public static String getProblem() {
+		
 		//return string representation of that problem.
-	//}
+		return problem;
+		
+	}
 	
-	//private boolean isCorrect() {
+	private static boolean isCorrect() {
 		//returns if user's answer is true or false
-	//}
+		//int answer = fixedNum * randomNum;
+		if (userAnswer == answer) {
+			System.out.println("correct");
+			return true;
+		}
+		
+		else {
+			System.out.println("incorrect");
+			return false;
+		}
+		
+	}
+	//comment
 	
 }
