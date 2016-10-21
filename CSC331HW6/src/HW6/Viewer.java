@@ -21,7 +21,6 @@ public class Viewer {
 	ImageSplitter splitter;
 	BufferedImage[] images;
 	JLabel imageHolder;
-	
 
 	public Viewer() {
 		// Instantiate JFrame
@@ -37,24 +36,25 @@ public class Viewer {
 		// Add image component so that it can be easily updated
 		imageHolder = new JLabel();
 		frame.add(imageHolder);
-		
+
 		// Show it
 		frame.setVisible(true);
-				
+
 		// Show image components
 		displayImageComponents();
 	}
 
 	public void displayImageComponents() {
 
-		if (selectedNumber != null && selectedNumberOfProblems != null && selectedMath != null && selectedImage != null) {
+		if (selectedNumber != null && selectedNumberOfProblems != null && selectedMath != null
+				&& selectedImage != null) {
 			imageHolder.setIcon(getIcon(selectedImage));
 
 			// images = new ImageSplitter(16,"picture1").getSplitImages();
 		}
 	}
-	
-	private ImageIcon getIcon(String imagePath){
+
+	private ImageIcon getIcon(String imagePath) {
 		File imgFile = new File(imagePath);
 		Image img = null;
 
@@ -63,11 +63,11 @@ public class Viewer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return new ImageIcon(img);
 	}
-	
-	public static void main(String[] args){
+
+	public static void main(String[] args) {
 		new Viewer();
 	}
 }
