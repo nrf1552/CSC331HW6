@@ -59,6 +59,20 @@ public class Viewer {
 			panelContainer.repaint();
 		}
 	}
+	
+	//Method to get average time for each problem correctly answered
+	public long getAverageElapsedTime() {
+		
+		long total = 0;
+		
+		for (int i = 0; i < times.length; i++) {
+			total = total + times[i].getTime();
+		}
+		
+		long average = total / times.length;
+		return average;
+		
+	}
 
 	public static void main(String[] args) {
 		new Viewer();
