@@ -39,7 +39,7 @@ public class ImageSplitter {
 	 * @param save
 	 * @return Images[]
 	 */
-	private static Image[] splitImage(int userIn, String file, boolean save){
+	public BufferedImage[] splitImage(int userIn, String file, boolean save){
 		int rows = 0, col = 0;
 		//initializes the row and column value needed for subimage creation based on userIn
 		if(userIn==4){
@@ -56,8 +56,6 @@ public class ImageSplitter {
 		}
 		//BufferedImage array that will hold the subimages
 		BufferedImage[] imgs=new BufferedImage[rows*col];
-		//Image array that will be returned containing subimages
-		Image[] images=new Image[rows*col];
 		
 		try{
 			File filename=new File(file);
@@ -93,12 +91,8 @@ public class ImageSplitter {
 		catch(IOException e){
 			e.printStackTrace();
 		}
-		//this for loop iterates over the array of bufferedImages and creates an identical Image array
-		for(int i = 0; i < rows*col; i++)
-			images[i] = (Image) imgs[i];
-		
-		
-		return images;
+
+		return imgs;
 	}
 
 

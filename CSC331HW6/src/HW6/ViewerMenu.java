@@ -60,7 +60,7 @@ public class ViewerMenu {
 			final int index = i;// needed to pass iterator into ActionListener 
 			menuitem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					viewer.selectedNumberOfProblems = numberOfProblems[index];
+					viewer.selectedNumberOfPanels = numberOfProblems[index];
 					viewer.displayImageComponents();
 				}
 			});
@@ -97,7 +97,7 @@ public class ViewerMenu {
 			final int index = i;// needed to pass iterator into ActionListener 
 			radioItem.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					viewer.selectedMath = calculationType[index];
+					viewer.isAddSubtract = (calculationType[index]==calculationType[0]);
 					viewer.displayImageComponents();
 				}
 			});

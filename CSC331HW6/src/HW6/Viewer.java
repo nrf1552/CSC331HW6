@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,15 +13,14 @@ import javax.swing.*;
 public class Viewer {
 
 	public Integer selectedNumber;
-	public Integer selectedNumberOfProblems;
-	public String selectedMath;
+	public Integer selectedNumberOfPanels;
+	public Boolean isAddSubtract;
 	public String selectedImage;
+	public Date[] times;
 
 	JFrame frame;
-	MathEngine engine;
-	ImageSplitter splitter;
 	BufferedImage[] images;
-	JLabel imageHolder;
+	JPanel panelContainer;
 
 	public Viewer() {
 		// Instantiate JFrame
@@ -33,9 +33,10 @@ public class Viewer {
 		// Add menu
 		frame.setJMenuBar(new ViewerMenu().menu(this));
 
-		// Add image component so that it can be easily updated
-		imageHolder = new JLabel();
-		frame.add(imageHolder);
+		// Add container for all image components
+		panelContainer = new JPanel();
+		panelContainer.setSize(frame.getSize());
+		frame.add(panelContainer);
 
 		// Show it
 		frame.setVisible(true);
@@ -46,25 +47,17 @@ public class Viewer {
 
 	public void displayImageComponents() {
 
-		if (selectedNumber != null && selectedNumberOfProblems != null && selectedMath != null
+		if (selectedNumber != null && selectedNumberOfPanels != null && isAddSubtract != null
 				&& selectedImage != null) {
-			imageHolder.setIcon(getIcon(selectedImage));
 
-			// images = new ImageSplitter(16,"picture1").getSplitImages();
+			images = new ImageSplitter().splitImage(4,"fall.jpg", false);
+			
+			for(BufferedImage img:images){
+				panelContainer.add(new ImageComponent(img));
+			}
+			
+			panelContainer.repaint();
 		}
-	}
-
-	private ImageIcon getIcon(String imagePath) {
-		File imgFile = new File(imagePath);
-		Image img = null;
-
-		try {
-			img = ImageIO.read(imgFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return new ImageIcon(img);
 	}
 
 	public static void main(String[] args) {
