@@ -1,13 +1,9 @@
 package HW6;
 
-import java.awt.Dimension;
-import java.awt.Image;
+import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Viewer {
@@ -51,7 +47,7 @@ public class Viewer {
 				&& selectedImage != null) {
 
 			images = new ImageSplitter().splitImage(4,"fall.jpg", false);
-			
+			panelContainer.setLayout(new GridLayout((int)Math.sqrt(selectedNumberOfPanels),(int)Math.sqrt(selectedNumberOfPanels)));
 			for(BufferedImage img:images){
 				panelContainer.add(new ImageComponent(img));
 			}
