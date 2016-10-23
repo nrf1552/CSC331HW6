@@ -19,13 +19,12 @@ public class ImageComponent extends JPanel {
 	static final String IMAGE = "ImagePanel";
 
 	public BufferedImage finalImage;
-	public String problem;
+	public Viewer viewer;
 
 	int width;
 	int height;
 	
 	CardLayout cardLayout;
-	Viewer viewer;
 	TopPanel topPanel;
 	MathPanel mathPanel;
 	ImagePanel imagePanel;

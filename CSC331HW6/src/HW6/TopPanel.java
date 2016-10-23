@@ -16,7 +16,6 @@ public class TopPanel extends JPanel {
 		panelWidth = ic.width;
 		setPreferredSize(new Dimension(ic.width, ic.height));
 		addMouseListener(new MouseListener() {
-
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				imageComponent.showMathLayer();

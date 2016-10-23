@@ -1,8 +1,9 @@
 package HW6;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
-import java.util.List;
+import java.util.*;
 
 import javax.swing.*;
 
@@ -20,24 +21,26 @@ public class Viewer {
 	private int wins;
 
 	public Viewer() {
+		times = new ArrayList<Long>();
 		// Instantiate JFrame
 		frame = new JFrame("Homework 6");
 
 		// Set initial properties
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1205, 805);
+		//frame.setSize(1205, 805);
 
 		// Add menu
 		frame.setJMenuBar(new ViewerMenu().menu(this));
 
 		// Add container for all image components
 		panelContainer = new JPanel();
-		panelContainer.setSize(frame.getSize());
+		panelContainer.setPreferredSize(new Dimension(1200,800));
 		frame.add(panelContainer);
 
 		// Show it
 		frame.setVisible(true);
-
+		frame.pack();
+		
 		// Show image components
 		displayImageComponents();
 	}
@@ -58,20 +61,7 @@ public class Viewer {
 			panelContainer.revalidate();
 		}
 	}
-	
-	//Method to get average time for each problem correctly answered
-	private long getAverageElapsedTime() {
 		
-		long total = 0;
-		
-		for (Long t:times) {
-			total += t;
-		}
-		
-		long average = total / times.size();
-		return average;
-	}
-	
 	public void recordWin(Long timeToSolve){
 		wins += 1;
 		times.add(timeToSolve);
@@ -83,5 +73,16 @@ public class Viewer {
 	
 	public static void main(String[] args) {
 		new Viewer();
+	}
+	
+	//Method to get average time for each problem correctly answered
+	private long getAverageElapsedTime() {
+		long total = 0;
+		
+		for (Long t:times) {
+			total += t;
+		}
+		
+		return total / times.size();
 	}
 }

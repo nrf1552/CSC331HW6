@@ -29,7 +29,7 @@ public class MathPanel extends JPanel {
 
 	public MathPanel(ImageComponent ic) {
 		imageComponent = ic;
-		math = new MathEngine(6, true);
+		math = new MathEngine(ic.viewer.selectedNumber, ic.viewer.isAddSubtract);
 		mathProblem = math.getProblem();
 		mathAnswer = math.getAnswer();
 	}
