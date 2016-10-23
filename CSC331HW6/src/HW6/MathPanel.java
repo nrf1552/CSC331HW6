@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -72,8 +71,7 @@ public class MathPanel extends JPanel {
 						//if userAnswer = math problem solution
 						attempts += 1;
 						
-						String inputAnswer = fieldAnswer.getText();
-						if (inputAnswer.equals(Integer.toString(mathAnswer))) {
+						if (math.isCorrect(fieldAnswer.getText())) {
 							current = new Date();
 							solveTime = current.getTime() - startTime.getTime();
 							
@@ -96,7 +94,6 @@ public class MathPanel extends JPanel {
 		
 		return this;
 	}
-
 	
 	public long getElapsedTime() {
 		return solveTime;

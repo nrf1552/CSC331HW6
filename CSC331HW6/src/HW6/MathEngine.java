@@ -39,6 +39,10 @@ public class MathEngine {
 
 	}
 	
+	public boolean isCorrect(String userAnswer){
+		return isCorrect(Integer.parseInt(userAnswer));
+	}
+	
 	public int getAnswer(){
 		return answer;
 	}
@@ -76,14 +80,8 @@ public class MathEngine {
 	private boolean getRandomBool(){
 		return new Random().nextBoolean();
 	}
+	
 	private int getRandomInt() {
 		return new Random().nextInt(12);
 	}
-	
-	public static void main(String[] args){
-		MathEngine m = new MathEngine(6, true);
-		String p = m.getProblem();
-		
-	}
-
 }

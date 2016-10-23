@@ -46,18 +46,18 @@ public class Viewer {
 		if (selectedNumber != null && selectedNumberOfPanels != null && isAddSubtract != null
 				&& selectedImage != null) {
 
-			images = new ImageSplitter().splitImage(4,"fall.jpg", false);
+			images = new ImageSplitter().splitImage(selectedNumberOfPanels,selectedImage, false);
 			panelContainer.setLayout(new GridLayout((int)Math.sqrt(selectedNumberOfPanels),(int)Math.sqrt(selectedNumberOfPanels)));
 			for(BufferedImage img:images){
 				panelContainer.add(new ImageComponent(img));
 			}
 			
-			panelContainer.repaint();
+			panelContainer.revalidate();
 		}
 	}
 	
 	//Method to get average time for each problem correctly answered
-	public long getAverageElapsedTime() {
+	private long getAverageElapsedTime() {
 		
 		long total = 0;
 		
