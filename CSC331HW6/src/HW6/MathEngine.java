@@ -5,15 +5,15 @@ import java.util.Scanner;
 
 public class MathEngine {
 
-	private int fixedNum;
+	private int userNumber;
 	private int randomNum;
 	private int userAnswer;
 	private int answer;
 	private String problem;
 
-	public MathEngine(int fixedNum, boolean isAddSubtract) {
-
-		randomNum = getRandomNum();
+	public MathEngine(int userInput, boolean isAddSubtract) {
+		userNumber = userInput;
+		randomNum = getRandomInt();
 
 		if (isAddSubtract) {
 			addSubtract();
@@ -44,20 +44,21 @@ public class MathEngine {
 
 	}
 	
+	public int getAnswer(){
+		return answer;
+	}
+	
 	private void addSubtract() {
-		int addsubInteger = (int) (Math.random() * 2 + 1);
-		System.out.println(addsubInteger);
-
-		if (addsubInteger == 1) {
-			System.out.println(fixedNum + " + " + randomNum);
-			problem = fixedNum + " + " + randomNum;
-			answer = fixedNum + randomNum;
+		boolean isAddition = getRandomBool();
+		
+		if (isAddition) {
+			problem = userNumber + " + " + randomNum;
+			answer = userNumber + randomNum;
 		}
 
 		else {
-			System.out.println(fixedNum + " - " + randomNum);
-			problem = fixedNum + " - " + randomNum;
-			answer = fixedNum - randomNum;
+			problem = userNumber + " - " + randomNum;
+			answer = userNumber - randomNum;
 		}
 
 	}
@@ -68,23 +69,30 @@ public class MathEngine {
 		System.out.println(multdivInteger);
 
 		if (multdivInteger == 1) {
-			System.out.println(fixedNum + " * " + randomNum);
-			problem = fixedNum + " * " + randomNum;
-			answer = fixedNum * randomNum;
+			System.out.println(userNumber + " * " + randomNum);
+			problem = userNumber + " * " + randomNum;
+			answer = userNumber * randomNum;
 		}
 
 		else {
-			System.out.println(fixedNum + " / " + randomNum);
-			problem = fixedNum + " / " + randomNum;
-			answer = fixedNum / randomNum;
+			System.out.println(userNumber + " / " + randomNum);
+			problem = userNumber + " / " + randomNum;
+			answer = userNumber / randomNum;
 		}
 
 	}
 
-	private int getRandomNum() {
-
-		return (int) (Math.random() * 12 + 1);
-
+	private boolean getRandomBool(){
+		return new Random().nextBoolean();
+	}
+	private int getRandomInt() {
+		return new Random().nextInt(12);
+	}
+	
+	public static void main(String[] args){
+		MathEngine m = new MathEngine(6, true);
+		String p = m.getProblem();
+		
 	}
 
 }

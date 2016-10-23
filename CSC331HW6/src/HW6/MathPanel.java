@@ -16,8 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class MathPanel extends JFrame implements ActionListener {
+public class MathPanel extends JPanel {
 	
+	private static final long serialVersionUID = 1L;
 	private int attempts = 0;
 	private int mathAnswer;
 	private int panelHeight;
@@ -29,26 +30,25 @@ public class MathPanel extends JFrame implements ActionListener {
 	private Date previous;
 	private Date current;
 	
-	public MathPanel(String problem, int height, int width, int answer){
-		mathProblem = problem;
-		panelHeight = height;
-		panelWidth = width;
-		mathAnswer = answer;
+	public MathPanel(ImageComponent ic){
+		panelHeight = ic.height;
+		panelWidth = ic.width;
+		mathProblem = ic.math.getProblem();
+		mathAnswer = ic.math.getAnswer();
 	}
 	
-	public JPanel showPanel(){
-		JPanel panel = new JPanel();
-		//resize panel
-		
+	public JPanel showPanel(){	
 		//show problem in lab
 		JLabel problem = new JLabel(mathProblem);
-		//panel.add(new JLabel(mathProblem));
+		this.add(problem);
 		
 		//show textbox for user entry
-		JLabel label = new JLabel("Enter the answer to the problem: ");
+		JLabel textfieldLabel = new JLabel("Enter the answer to the problem: ");
+		this.add(textfieldLabel);
+				
 		fieldAnswer = new JTextField();
 		fieldAnswer.setPreferredSize(new Dimension(200, 20));
-		panel.add(fieldAnswer);
+		this.add(fieldAnswer);
 		
 		//show enter button
 		JButton enterButton = new JButton("Enter");
@@ -79,26 +79,12 @@ public class MathPanel extends JFrame implements ActionListener {
 				}	
 		);
 				
-		panel.add(enterButton);
+		this.add(enterButton);
 		
-		
-		//pack and make visible
-		panel.setVisible(true);
-		
-		//return panel
-		return panel;
+		return this;
 	}
 	
 	public long getElapsedTime() {
-		
 		return solveTime;
-		
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

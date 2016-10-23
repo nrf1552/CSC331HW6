@@ -35,8 +35,11 @@ public class ImageComponent extends JPanel {
 		height = image.getHeight();
 		finalImage = image;
 		
+		math = new MathEngine(6, true);
+		
 		setPreferredSize(new Dimension(width, height));
 		add(new TopPanel(this), TOP);
+		add(new MathPanel(this).showPanel(), MATH);
 		add(new ImagePanel(this), IMAGE);
 	}
 	
@@ -45,12 +48,7 @@ public class ImageComponent extends JPanel {
 	}
 
 	public void showMathLayer() {
-		String problem = math.getProblem();
-
-		// check answer
-		if (math.isCorrect(6)) {
-			showImageLayer();
-		}
+		cardLayout.show(this, MATH);
 	}
 
 	public void showImageLayer() {
