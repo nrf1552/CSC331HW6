@@ -6,6 +6,8 @@
 package HW6;
 
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -15,38 +17,50 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class MathPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	private int attempts = 0;
 	private int mathAnswer;
-	private int panelHeight;
-	private int panelWidth;
+
 	private String mathProblem;
 	private JTextField fieldAnswer;
 	private long solveTime;
 	
-	private Date previous;
+	private Date startTime;
 	private Date current;
 	
-	public MathPanel(ImageComponent ic){
-		panelHeight = ic.height;
-		panelWidth = ic.width;
-		mathProblem = ic.math.getProblem();
-		mathAnswer = ic.math.getAnswer();
+	private MathEngine math;
+	private ImageComponent imageComponent;
+	
+	public MathPanel(ImageComponent ic){	
+		imageComponent = ic;
+		math = new MathEngine(6, true);		
+		mathProblem = math.getProblem();
+		mathAnswer = math.getAnswer();
 	}
 	
 	public JPanel showPanel(){	
+		this.setLayout(new GridLayout(4,1));
 		//show problem
-		this.add(new JLabel(mathProblem));
+		JLabel problemLabel = new JLabel(mathProblem, SwingConstants.CENTER);
+		problemLabel.setFont(new Font(Font.SANS_SERIF,Font.BOLD,48));
+		this.add(problemLabel);
+		
 		
 		//show textbox for user entry
-		JLabel textfieldLabel = new JLabel("Enter answer to problem: ");
-		this.add(textfieldLabel);		
+		JPanel entryPanel = new JPanel();
+		entryPanel.setLayout(new GridLayout(1,2));
+		
+		JLabel textfieldLabel = new JLabel("Enter answer: ", SwingConstants.RIGHT);
 		fieldAnswer = new JTextField();
 		fieldAnswer.setPreferredSize(new Dimension(200, 20));
-		this.add(fieldAnswer);
+		textfieldLabel.setLabelFor(fieldAnswer);
+		entryPanel.add(textfieldLabel);		
+		entryPanel.add(fieldAnswer);
+		this.add(entryPanel);
 		
 		//show enter button
 		JButton enterButton = new JButton("Enter");
@@ -56,29 +70,33 @@ public class MathPanel extends JPanel {
 					public void actionPerformed(ActionEvent e) {
 						//when enter button is pressed, check to see
 						//if userAnswer = math problem solution
+						attempts += 1;
+						
 						String inputAnswer = fieldAnswer.getText();
-						if (inputAnswer == Integer.toString(mathAnswer)) {
-							previous = current;
+						if (inputAnswer.equals(Integer.toString(mathAnswer))) {
 							current = new Date();
-							solveTime = current.getTime() - previous.getTime();
-							//Panel disappears, revealing the image underneath
+							solveTime = current.getTime() - startTime.getTime();
 							
+							imageComponent.showImageLayer();
 						}
 						else {
 							//Only 2 attempts allowed before the correct answer displays
-							attempts += 1;
 							if (attempts == 2) {
 								fieldAnswer.setText(Integer.toString(mathAnswer));
-							}
+								fieldAnswer.setEditable(false);
+								textfieldLabel.setText("Correct answer:");
+								enterButton.setEnabled(false);
+								}
 						}
 					}
 				}	
 		);
-				
 		this.add(enterButton);
+		startTime = new Date();
 		
 		return this;
 	}
+
 	
 	public long getElapsedTime() {
 		return solveTime;

@@ -13,11 +13,11 @@ import java.io.IOException;
 public class ImageComponent extends JPanel {
 
 	static final long serialVersionUID = 1L;
+	
 	static final String TOP = "TopPanel";
 	static final String MATH = "MathPanel";
 	static final String IMAGE = "ImagePanel";
 
-	public MathEngine math;
 	public BufferedImage finalImage;
 	public String problem;
 
@@ -25,7 +25,6 @@ public class ImageComponent extends JPanel {
 	int height;
 	
 	CardLayout cardLayout;
-	JPanel workingPanel;
 	
 	public ImageComponent(BufferedImage image) {// Viewer viewer) {
 		setLayout(new CardLayout());
@@ -34,8 +33,6 @@ public class ImageComponent extends JPanel {
 		width = image.getWidth();
 		height = image.getHeight();
 		finalImage = image;
-		
-		math = new MathEngine(6, true);
 		
 		setPreferredSize(new Dimension(width, height));
 		add(new TopPanel(this), TOP);
