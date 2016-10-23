@@ -2,7 +2,6 @@ package HW6;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.JPanel;
 
 public class TopPanel extends JPanel {
@@ -17,9 +16,9 @@ public class TopPanel extends JPanel {
 		panelWidth = ic.width;
 		setPreferredSize(new Dimension(ic.width, ic.height));
 		addMouseListener(new MouseListener() {
-			
+
 			@Override
-			public void mouseClicked(MouseEvent e) {		
+			public void mouseClicked(MouseEvent e) {
 				imageComponent.showMathLayer();
 			}
 

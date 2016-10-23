@@ -2,7 +2,7 @@ package HW6;
 
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
-import java.util.Date;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -12,11 +12,12 @@ public class Viewer {
 	public Integer selectedNumberOfPanels;
 	public Boolean isAddSubtract;
 	public String selectedImage;
-	public Date[] times;
-
-	JFrame frame;
-	BufferedImage[] images;
-	JPanel panelContainer;
+	
+	private JFrame frame;
+	private BufferedImage[] images;
+	private JPanel panelContainer;
+	private List<Long> times;
+	private int wins;
 
 	public Viewer() {
 		// Instantiate JFrame
@@ -24,7 +25,7 @@ public class Viewer {
 
 		// Set initial properties
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1200, 800);
+		frame.setSize(1205, 805);
 
 		// Add menu
 		frame.setJMenuBar(new ViewerMenu().menu(this));
@@ -46,12 +47,14 @@ public class Viewer {
 		if (selectedNumber != null && selectedNumberOfPanels != null && isAddSubtract != null
 				&& selectedImage != null) {
 
-			images = new ImageSplitter().splitImage(selectedNumberOfPanels,selectedImage, false);
-			panelContainer.setLayout(new GridLayout((int)Math.sqrt(selectedNumberOfPanels),(int)Math.sqrt(selectedNumberOfPanels)));
-			for(BufferedImage img:images){
-				panelContainer.add(new ImageComponent(img));
-			}
+			int size = (int)Math.sqrt(selectedNumberOfPanels);
 			
+			images = new ImageSplitter().splitImage(selectedNumberOfPanels,selectedImage, false);
+			panelContainer.setLayout(new GridLayout(size,size));
+			for(BufferedImage img:images){
+				panelContainer.add(new ImageComponent(img, this));
+			}
+		
 			panelContainer.revalidate();
 		}
 	}
@@ -61,15 +64,23 @@ public class Viewer {
 		
 		long total = 0;
 		
-		for (int i = 0; i < times.length; i++) {
-			total = total + times[i].getTime();
+		for (Long t:times) {
+			total += t;
 		}
 		
-		long average = total / times.length;
+		long average = total / times.size();
 		return average;
-		
+	}
+	
+	public void recordWin(Long timeToSolve){
+		wins += 1;
+		times.add(timeToSolve);
 	}
 
+	public void showResults(){
+		//TODO:update frame with average elapsed time and wins
+	}
+	
 	public static void main(String[] args) {
 		new Viewer();
 	}

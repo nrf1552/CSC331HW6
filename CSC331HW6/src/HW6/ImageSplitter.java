@@ -1,23 +1,11 @@
 package HW6;
 
-import java.awt.FlowLayout;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
-/**
- * 
- */
 
 /**
  * @author Jimmy Silva
@@ -30,7 +18,6 @@ import javax.swing.JLabel;
 // to change target image syntax needs to be change
 
 public class ImageSplitter {
-
 	/**
 	 * provided a file directory route this method will create an array of
 	 * subimages and return it within an Image array
@@ -53,7 +40,8 @@ public class ImageSplitter {
 			FileInputStream fis = new FileInputStream(filename);
 			BufferedImage image = ImageIO.read(fis);
 
-			int pieceWidth = image.getWidth() / size; // gets total width for														// subimage divisiom
+			int pieceWidth = image.getWidth() / size; // gets total width for //
+														// subimage divisiom
 			int pieceHeight = image.getHeight() / size; // and total height for
 														// subimage division
 
@@ -66,12 +54,12 @@ public class ImageSplitter {
 					imgs[x * size + y] = new BufferedImage(pieceWidth, pieceHeight, image.getType());
 					// draws the image piece
 					Graphics2D gr = imgs[x * size + y].createGraphics();
-					gr.drawImage(image, 0, 0, pieceWidth, pieceHeight, pieceWidth * y, pieceHeight * x,pieceWidth * y + pieceWidth, pieceHeight * x + pieceHeight, null);
+					gr.drawImage(image, 0, 0, pieceWidth, pieceHeight, pieceWidth * y, pieceHeight * x,
+							pieceWidth * y + pieceWidth, pieceHeight * x + pieceHeight, null);
 					gr.dispose();
 				}
-
 			}
-			
+
 			if (save) {
 				// writing mini images into image files
 				String name = file.split(".")[0];

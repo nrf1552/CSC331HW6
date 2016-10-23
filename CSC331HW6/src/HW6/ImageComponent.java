@@ -25,19 +25,28 @@ public class ImageComponent extends JPanel {
 	int height;
 	
 	CardLayout cardLayout;
+	Viewer viewer;
+	TopPanel topPanel;
+	MathPanel mathPanel;
+	ImagePanel imagePanel;
 	
-	public ImageComponent(BufferedImage image) {// Viewer viewer) {
+	public ImageComponent(BufferedImage image, Viewer v) {
 		setLayout(new CardLayout());
 		cardLayout = (CardLayout)getLayout();
 		
 		width = image.getWidth();
 		height = image.getHeight();
 		finalImage = image;
+		viewer = v;
 		
 		setPreferredSize(new Dimension(width, height));
-		add(new TopPanel(this), TOP);
-		add(new MathPanel(this).showPanel(), MATH);
-		add(new ImagePanel(this), IMAGE);
+		topPanel = new TopPanel(this);
+		mathPanel = new MathPanel(this);
+		imagePanel = new ImagePanel(this);
+		
+		add(topPanel, TOP);
+		add(mathPanel.showPanel(), MATH);
+		add(imagePanel, IMAGE);
 	}
 
 	public void showTopLayer() {
@@ -50,20 +59,6 @@ public class ImageComponent extends JPanel {
 
 	public void showImageLayer() {
 		cardLayout.show(this, IMAGE);
-	}
-
-	public static void main(String[] args) {
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(new File("fall.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		JFrame f = new JFrame("Test");
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
-		f.add(new ImageComponent(img));
-		f.pack();
-		f.setVisible(true);
+		viewer.recordWin(mathPanel.getElapsedTime());
 	}
 }
