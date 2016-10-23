@@ -67,6 +67,7 @@ public class MathPanel extends JPanel {
 					solveTime = current - startTime;
 
 					imageComponent.showImageLayer();
+					imageComponent.viewer.recordWin(getElapsedTime());
 				} else {
 					// Only 2 attempts allowed before the correct answer
 					// displays
@@ -75,6 +76,7 @@ public class MathPanel extends JPanel {
 						fieldAnswer.setEditable(false);
 						textfieldLabel.setText("Correct answer:");
 						enterButton.setEnabled(false);
+						imageComponent.viewer.recordLoss();
 					}
 				}
 			}

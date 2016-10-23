@@ -58,6 +58,5 @@ public class ImageComponent extends JPanel {
 
 	public void showImageLayer() {
 		cardLayout.show(this, IMAGE);
-		viewer.recordWin(mathPanel.getElapsedTime());
 	}
 }
