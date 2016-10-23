@@ -11,14 +11,24 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+/**
+ * 
+ * @author Daniel Emery
+ * This class shows a panel of each instance of MathEngine.
+ * These panels cover the bottom layer, which is the actual picture.
+ * The panel includes the randomized math problem, a textbox for the user to
+ * enter  his/her answer, and an enter button for the user to submit the answer.
+ *
+ */
+
 public class MathPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private int attempts = 0;
-	private int mathAnswer;
+	private int attempts = 0;                   //variable that controls the amount of attempts to answer the math problem
+	private int mathAnswer;                     //variable that holds the answer to the math problem
 
-	private String mathProblem;
-	private JTextField fieldAnswer;
+	private String mathProblem;                 //variable that holds the string representation of the math problem
+	private JTextField fieldAnswer;             //variable that holds whatever the user enters in the TextField
 	private long solveTime;
 
 	private long startTime;
@@ -35,13 +45,15 @@ public class MathPanel extends JPanel {
 	}
 
 	public JPanel showPanel() {
+		
 		this.setLayout(new GridLayout(4, 1));
-		// show problem
+		
+		// Creates a JLabel that shows the math problem
 		JLabel problemLabel = new JLabel(mathProblem, SwingConstants.CENTER);
 		problemLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 48));
 		this.add(problemLabel);
 
-		// show textbox for user entry
+		// Creates a JTextField for user input
 		JPanel entryPanel = new JPanel();
 		entryPanel.setLayout(new GridLayout(1, 2));
 
@@ -53,24 +65,30 @@ public class MathPanel extends JPanel {
 		entryPanel.add(fieldAnswer);
 		this.add(entryPanel);
 
-		// show enter button
+		// Creates a JButton for the user to submit their answer to the math problem
 		JButton enterButton = new JButton("Enter");
 		enterButton.addActionListener(new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// when enter button is pressed, check to see
-				// if userAnswer = math problem solution
+				
+				// Creates an ActionListener: When enter button is pressed,
+				// check to see if fieldAnswer is equal to math problem solution
+				
+				//attempts variable increments by 1 on each attempt
 				attempts += 1;
-
+				
+				//If user's answer is correct, record the time, store it in
+				//the solveTime variable, and show the image underneath
 				if (math.isCorrect(fieldAnswer.getText())) {
 					current = System.nanoTime();
 					solveTime = current - startTime;
 
 					imageComponent.showImageLayer();
 					imageComponent.viewer.recordWin(getElapsedTime());
+				
+				//Once the attempts variable is equal to 2, show the correct answer
 				} else {
-					// Only 2 attempts allowed before the correct answer
-					// displays
 					if (attempts == 2) {
 						fieldAnswer.setText(Integer.toString(mathAnswer));
 						fieldAnswer.setEditable(false);
