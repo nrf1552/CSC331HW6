@@ -79,8 +79,13 @@ public class Viewer {
 	}
 
 	public void showResults() {
+		
+		
 		if (wins + losses == selectedNumberOfPanels) {
-			// TODO:update border with average elapsed time and wins
+			JPanel answerResults=new JPanel();
+			answerResults.setLayout(new BorderLayout());
+			answerResults.add(new JTextArea("Total answered Correctly: "+ wins+"\n","Total time to finish: "+ times), BorderLayout.Center);
+			
 		}
 	}
 
