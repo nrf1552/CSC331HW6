@@ -38,14 +38,12 @@ public class MathPanel extends JPanel {
 	}
 	
 	public JPanel showPanel(){	
-		//show problem in lab
-		JLabel problem = new JLabel(mathProblem);
-		this.add(problem);
+		//show problem
+		this.add(new JLabel(mathProblem));
 		
 		//show textbox for user entry
-		JLabel textfieldLabel = new JLabel("Enter the answer to the problem: ");
-		this.add(textfieldLabel);
-				
+		JLabel textfieldLabel = new JLabel("Enter answer to problem: ");
+		this.add(textfieldLabel);		
 		fieldAnswer = new JTextField();
 		fieldAnswer.setPreferredSize(new Dimension(200, 20));
 		this.add(fieldAnswer);
@@ -60,14 +58,12 @@ public class MathPanel extends JPanel {
 						//if userAnswer = math problem solution
 						String inputAnswer = fieldAnswer.getText();
 						if (inputAnswer == Integer.toString(mathAnswer)) {
-							//end timer
 							previous = current;
 							current = new Date();
 							solveTime = current.getTime() - previous.getTime();
 							//Panel disappears, revealing the image underneath
 							
 						}
-						
 						else {
 							//Only 2 attempts allowed before the correct answer displays
 							attempts += 1;

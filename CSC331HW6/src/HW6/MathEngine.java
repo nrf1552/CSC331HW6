@@ -25,20 +25,15 @@ public class MathEngine {
 	}
 
 	public String getProblem() {
-
-		// return string representation of that problem.
 		return problem;
 	}
 
 	public boolean isCorrect(int userAnswer) {
-		// returns if user's answer is true or false
 		if (userAnswer == answer) {
-			System.out.println("correct");
 			return true;
 		}
 
 		else {
-			System.out.println("incorrect");
 			return false;
 		}
 
@@ -65,17 +60,13 @@ public class MathEngine {
 
 	private void multDivide() {
 
-		int multdivInteger = (int) (Math.random() * 2 + 1);
-		System.out.println(multdivInteger);
-
-		if (multdivInteger == 1) {
-			System.out.println(userNumber + " * " + randomNum);
+		boolean isMult = getRandomBool();
+		if (isMult) {
 			problem = userNumber + " * " + randomNum;
 			answer = userNumber * randomNum;
 		}
 
 		else {
-			System.out.println(userNumber + " / " + randomNum);
 			problem = userNumber + " / " + randomNum;
 			answer = userNumber / randomNum;
 		}

@@ -42,7 +42,7 @@ public class ImageComponent extends JPanel {
 		add(new MathPanel(this).showPanel(), MATH);
 		add(new ImagePanel(this), IMAGE);
 	}
-	
+
 	public void showTopLayer() {
 		cardLayout.show(this, TOP);
 	}
