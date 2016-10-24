@@ -95,7 +95,7 @@ public class Viewer {
 	public void showResults() {
 		
 		if (wins + losses == selectedNumberOfPanels) {			
-			JLabel label = new JLabel("Total answered correctly: " + wins + "; Total time to finish: " + getAverageElapsedTime() + "ms");
+			JLabel label = new JLabel("Total answered correctly: " + wins + "; Average time to finish: " + getAverageElapsedTime() + "ms");
 			resultPanel.removeAll();
 			resultPanel.add(label);
 			frame.repaint();
