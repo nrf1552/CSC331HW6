@@ -57,6 +57,7 @@ public class Viewer {
 	}
 
 	public void displayImageComponents() {
+4
 
 		if (selectedNumber != null && selectedNumberOfPanels != null && isAddSubtract != null
 				&& selectedImage != null) {
@@ -72,6 +73,7 @@ public class Viewer {
 			panelContainer.removeAll();
 			panelContainer.setPreferredSize(getImageDimension(selectedImage));
 			panelContainer.setLayout(new GridLayout(size, size));
+			
 			for (BufferedImage img : images) {
 				panelContainer.add(new ImageComponent(img, this));
 			}
@@ -93,7 +95,6 @@ public class Viewer {
 	}
 
 	public void showResults() {
-		
 		if (wins + losses == selectedNumberOfPanels) {			
 			JLabel label = new JLabel("Total answered correctly: " + wins + "; Average time to finish: " + getAverageElapsedTime() + "ms");
 			resultPanel.removeAll();
