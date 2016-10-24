@@ -57,7 +57,6 @@ public class Viewer {
 	}
 
 	public void displayImageComponents() {
-4
 
 		if (selectedNumber != null && selectedNumberOfPanels != null && isAddSubtract != null
 				&& selectedImage != null) {
