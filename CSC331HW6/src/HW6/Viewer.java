@@ -1,5 +1,6 @@
 package HW6;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
@@ -46,6 +47,7 @@ public class Viewer {
 
 		// Show image components
 		displayImageComponents();
+		
 	}
 
 	public void displayImageComponents() {
@@ -85,8 +87,13 @@ public class Viewer {
 	}
 
 	public void showResults() {
+		
 		if (wins + losses == selectedNumberOfPanels) {
-			// TODO:update border with average elapsed time and wins
+			JPanel answerResults = new JPanel();
+			JLabel label = new JLabel("Total answered Correctly: " + wins + "\nTotal time to finish: " + times);
+			answerResults.add(label);
+			frame.add(answerResults, BorderLayout.CENTER);
+			
 		}
 	}
 

@@ -5,23 +5,30 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+/**
+ * 
+ * @author Daniel Emery
+ * This class shows a panel of each instance of MathEngine.
+ * These panels cover the bottom layer, which is the actual picture.
+ * The panel includes the randomized math problem, a textbox for the user to
+ * enter  his/her answer, and an enter button for the user to submit the answer.
+ *
+ */
+
 public class MathPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private int attempts = 0;
-	private int mathAnswer;
+	private int attempts = 0;                   //variable that controls the amount of attempts to answer the math problem
+	private int mathAnswer;                     //variable that holds the answer to the math problem
 
-	private String mathProblem;
-	private JTextField fieldAnswer;
+	private String mathProblem;                 //variable that holds the string representation of the math problem
+	private JTextField fieldAnswer;             //variable that holds whatever the user enters in the TextField
 	private long solveTime;
 
 	private long startTime;
@@ -29,12 +36,6 @@ public class MathPanel extends JPanel {
 
 	private MathEngine math;
 	private ImageComponent imageComponent;
-	
-	JLabel problemLabel;
-	JPanel entryPanel;
-	JLabel textfieldLabel;
-	JButton enterButton;
-	
 
 	public MathPanel(ImageComponent ic) {
 		imageComponent = ic;
@@ -44,45 +45,58 @@ public class MathPanel extends JPanel {
 	}
 
 	public JPanel showPanel() {
+		
 		this.setLayout(new GridLayout(4, 1));
-		// show problem
-		problemLabel = new JLabel(mathProblem, SwingConstants.CENTER);
+		
+		// Creates a JLabel that shows the math problem
+		JLabel problemLabel = new JLabel(mathProblem, SwingConstants.CENTER);
 		problemLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 48));
 		this.add(problemLabel);
 
-		// show textbox for user entry
-		entryPanel = new JPanel();
-		fieldAnswer = new JTextField();
-		textfieldLabel = new JLabel("Enter answer: ", SwingConstants.RIGHT);
+		// Creates a JTextField for user input
+		JPanel entryPanel = new JPanel();
 		entryPanel.setLayout(new GridLayout(1, 2));
+
+		JLabel textfieldLabel = new JLabel("Enter answer: ", SwingConstants.RIGHT);
+		fieldAnswer = new JTextField();
 		fieldAnswer.setPreferredSize(new Dimension(200, 20));
-		fieldAnswer.addKeyListener(new KeyListener(){
-			@Override
-			public void keyTyped(KeyEvent e) {			
-			}
-			
-			@Override
-			public void keyReleased(KeyEvent e) {
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					validateAnswer();
-				}
-			}
-		});
 		textfieldLabel.setLabelFor(fieldAnswer);
 		entryPanel.add(textfieldLabel);
 		entryPanel.add(fieldAnswer);
 		this.add(entryPanel);
 
-		// show enter button
-		enterButton = new JButton("Enter");
+		// Creates a JButton for the user to submit their answer to the math problem
+		JButton enterButton = new JButton("Enter");
 		enterButton.addActionListener(new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				validateAnswer();
+				
+				// Creates an ActionListener: When enter button is pressed,
+				// check to see if fieldAnswer is equal to math problem solution
+				
+				//attempts variable increments by 1 on each attempt
+				attempts += 1;
+				
+				//If user's answer is correct, record the time, store it in
+				//the solveTime variable, and show the image underneath
+				if (math.isCorrect(fieldAnswer.getText())) {
+					current = System.nanoTime();
+					solveTime = current - startTime;
+
+					imageComponent.showImageLayer();
+					imageComponent.viewer.recordWin(getElapsedTime());
+				
+				//Once the attempts variable is equal to 2, show the correct answer
+				} else {
+					if (attempts == 2) {
+						fieldAnswer.setText(Integer.toString(mathAnswer));
+						fieldAnswer.setEditable(false);
+						textfieldLabel.setText("Correct answer:");
+						enterButton.setEnabled(false);
+						imageComponent.viewer.recordLoss();
+					}
+				}
 			}
 		});
 		this.add(enterButton);
@@ -93,37 +107,5 @@ public class MathPanel extends JPanel {
 
 	public long getElapsedTime() {
 		return solveTime;
-	}
-	
-	private void validateAnswer(){
-		// when either enter button is pressed, or enter is keyed, checks
-		// if userAnswer = math problem solution
-		attempts += 1;
-		
-
-		if (math.isCorrect(fieldAnswer.getText())) {
-			current = System.nanoTime();
-			solveTime = current - startTime;
-
-			imageComponent.showImageLayer();
-			imageComponent.viewer.recordWin(getElapsedTime());
-		} else {
-			// Only 2 attempts allowed before the correct answer
-			// displays
-			if (attempts == 2) {
-				fieldAnswer.setText(Integer.toString(mathAnswer));
-				fieldAnswer.setEditable(false);
-				textfieldLabel.setText("Correct answer:");
-				
-				imageComponent.viewer.recordLoss();
-				enterButton.setText("Click to reveal image");
-				enterButton.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						imageComponent.showImageLayer();
-					}
-				});
-			}
-		}
 	}
 }

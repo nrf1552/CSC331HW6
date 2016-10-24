@@ -2,12 +2,22 @@ package HW6;
 
 import java.util.Random;
 
+/**
+ * 
+ * @author Daniel Emery
+ * MathEngine class creates a math problem based on the user's 
+ * selected number, a randomly generated number between 1 and 12,
+ * and whether or not the problems are based on Addition/Subtraction
+ * or Multiplication/Division.
+ * 
+ */
+
 public class MathEngine {
 
-	private int userNumber;
-	private int randomNum;
-	private int answer;
-	private String problem;
+	private int userNumber;      //variable that holds the number selected by the user in the menu
+	private int randomNum;       //variable that holds the randomly generated number between 1 and 12
+	private int answer;          //variable that holds the answer to the math problem
+	private String problem;      //variable that holds the string representation of the math problem
 
 	public MathEngine(int userInput, boolean isAddSubtract) {
 		userNumber = userInput;
