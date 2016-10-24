@@ -49,7 +49,6 @@ public class TopPanel extends JPanel {
 		g2.setPaint(new Color(255,215,0)); //yellow
 		g2.setFont(new Font("Sans-serif", Font.BOLD, 20));
 		printOutlinedText(g2, text, imageComponent.width / 4, imageComponent.height / 2);
-
 	}
 	
 	private void printOutlinedText(Graphics2D g2, String textToOutline, int x, int y){
