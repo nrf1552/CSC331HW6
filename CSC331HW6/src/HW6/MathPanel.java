@@ -16,11 +16,12 @@ import javax.swing.SwingConstants;
 
 /**
  * 
- * @author Daniel Emery This class shows a panel of each instance of MathEngine.
- *         These panels cover the bottom layer, which is the actual picture. The
- *         panel includes the randomized math problem, a textbox for the user to
- *         enter his/her answer, and an enter button for the user to submit the
- *         answer.
+ * @author Daniel Emery 
+ * This class shows a panel of each instance of MathEngine.
+ * These panels cover the bottom layer, which is the actual picture. The
+ * panel includes the randomized math problem, a textbox for the user to
+ * enter his/her answer, and an enter button for the user to submit the
+ * answer.
  *
  */
 
