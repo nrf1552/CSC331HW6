@@ -72,9 +72,6 @@ public class ViewerMenu {
 
 		for (int i = 0; i <= 12; i++) {
 			radioItem = new JRadioButtonMenuItem(Integer.toString(i));
-			if (i == 0) { // default
-				radioItem.setSelected(true);
-			}
 			radiogroup.add(radioItem);
 			submenu.add(radioItem);
 			

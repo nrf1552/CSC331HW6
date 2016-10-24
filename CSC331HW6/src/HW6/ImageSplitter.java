@@ -1,9 +1,11 @@
 package HW6;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
@@ -41,7 +43,7 @@ public class ImageSplitter {
 			BufferedImage image = ImageIO.read(fis);
 
 			int pieceWidth = image.getWidth() / size; // gets total width for //
-														// subimage divisiom
+														// // subimage divisiom
 			int pieceHeight = image.getHeight() / size; // and total height for
 														// subimage division
 
@@ -74,5 +76,4 @@ public class ImageSplitter {
 
 		return imgs;
 	}
-
 }

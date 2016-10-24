@@ -35,7 +35,12 @@ public class MathEngine {
 	}
 
 	public boolean isCorrect(String userAnswer) {
-		return isCorrect(Integer.parseInt(userAnswer));
+		if(userAnswer.isEmpty()){
+			return false;
+		}
+		else{
+			return isCorrect(Integer.parseInt(userAnswer));			
+		}
 	}
 
 	public int getAnswer() {

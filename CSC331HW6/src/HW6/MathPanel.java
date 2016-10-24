@@ -5,6 +5,9 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,6 +29,12 @@ public class MathPanel extends JPanel {
 
 	private MathEngine math;
 	private ImageComponent imageComponent;
+	
+	JLabel problemLabel;
+	JPanel entryPanel;
+	JLabel textfieldLabel;
+	JButton enterButton;
+	
 
 	public MathPanel(ImageComponent ic) {
 		imageComponent = ic;
@@ -37,48 +46,43 @@ public class MathPanel extends JPanel {
 	public JPanel showPanel() {
 		this.setLayout(new GridLayout(4, 1));
 		// show problem
-		JLabel problemLabel = new JLabel(mathProblem, SwingConstants.CENTER);
+		problemLabel = new JLabel(mathProblem, SwingConstants.CENTER);
 		problemLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 48));
 		this.add(problemLabel);
 
 		// show textbox for user entry
-		JPanel entryPanel = new JPanel();
-		entryPanel.setLayout(new GridLayout(1, 2));
-
-		JLabel textfieldLabel = new JLabel("Enter answer: ", SwingConstants.RIGHT);
+		entryPanel = new JPanel();
 		fieldAnswer = new JTextField();
+		textfieldLabel = new JLabel("Enter answer: ", SwingConstants.RIGHT);
+		entryPanel.setLayout(new GridLayout(1, 2));
 		fieldAnswer.setPreferredSize(new Dimension(200, 20));
+		fieldAnswer.addKeyListener(new KeyListener(){
+			@Override
+			public void keyTyped(KeyEvent e) {			
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					validateAnswer();
+				}
+			}
+		});
 		textfieldLabel.setLabelFor(fieldAnswer);
 		entryPanel.add(textfieldLabel);
 		entryPanel.add(fieldAnswer);
 		this.add(entryPanel);
 
 		// show enter button
-		JButton enterButton = new JButton("Enter");
+		enterButton = new JButton("Enter");
 		enterButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// when enter button is pressed, check to see
-				// if userAnswer = math problem solution
-				attempts += 1;
-
-				if (math.isCorrect(fieldAnswer.getText())) {
-					current = System.nanoTime();
-					solveTime = current - startTime;
-
-					imageComponent.showImageLayer();
-					imageComponent.viewer.recordWin(getElapsedTime());
-				} else {
-					// Only 2 attempts allowed before the correct answer
-					// displays
-					if (attempts == 2) {
-						fieldAnswer.setText(Integer.toString(mathAnswer));
-						fieldAnswer.setEditable(false);
-						textfieldLabel.setText("Correct answer:");
-						enterButton.setEnabled(false);
-						imageComponent.viewer.recordLoss();
-					}
-				}
+				validateAnswer();
 			}
 		});
 		this.add(enterButton);
@@ -89,5 +93,37 @@ public class MathPanel extends JPanel {
 
 	public long getElapsedTime() {
 		return solveTime;
+	}
+	
+	private void validateAnswer(){
+		// when either enter button is pressed, or enter is keyed, checks
+		// if userAnswer = math problem solution
+		attempts += 1;
+		
+
+		if (math.isCorrect(fieldAnswer.getText())) {
+			current = System.nanoTime();
+			solveTime = current - startTime;
+
+			imageComponent.showImageLayer();
+			imageComponent.viewer.recordWin(getElapsedTime());
+		} else {
+			// Only 2 attempts allowed before the correct answer
+			// displays
+			if (attempts == 2) {
+				fieldAnswer.setText(Integer.toString(mathAnswer));
+				fieldAnswer.setEditable(false);
+				textfieldLabel.setText("Correct answer:");
+				
+				imageComponent.viewer.recordLoss();
+				enterButton.setText("Click to reveal image");
+				enterButton.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						imageComponent.showImageLayer();
+					}
+				});
+			}
+		}
 	}
 }

@@ -3,8 +3,12 @@ package HW6;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Viewer {
@@ -27,7 +31,6 @@ public class Viewer {
 
 		// Set initial properties
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// frame.setSize(1205, 805);
 
 		// Add menu
 		frame.setJMenuBar(new ViewerMenu().menu(this));
@@ -50,7 +53,7 @@ public class Viewer {
 		if (selectedNumber != null && selectedNumberOfPanels != null && isAddSubtract != null
 				&& selectedImage != null) {
 
-			// re-initialize game variables
+			// re-initialize game variable
 			times = new ArrayList<Long>();
 			wins = 0;
 			losses = 0;
@@ -58,11 +61,14 @@ public class Viewer {
 			int size = (int) Math.sqrt(selectedNumberOfPanels);
 
 			images = new ImageSplitter().splitImage(selectedNumberOfPanels, selectedImage, false);
+			panelContainer.removeAll();
+			panelContainer.setPreferredSize(getImageDimension(selectedImage));
 			panelContainer.setLayout(new GridLayout(size, size));
 			for (BufferedImage img : images) {
 				panelContainer.add(new ImageComponent(img, this));
 			}
 
+			frame.pack();
 			panelContainer.revalidate();
 		}
 	}
@@ -97,5 +103,22 @@ public class Viewer {
 		}
 
 		return total / times.size();
+	}
+	
+	private Dimension getImageDimension(String file) {
+		BufferedImage image = null;
+		
+		try {
+			File filename = new File(file);
+			FileInputStream fis = new FileInputStream(filename);
+			image = ImageIO.read(fis);
+			
+		} catch (
+
+		IOException e) {
+			e.printStackTrace();
+		}
+		
+		return new Dimension(image.getWidth(), image.getHeight());
 	}
 }
