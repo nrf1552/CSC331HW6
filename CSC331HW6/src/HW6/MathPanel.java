@@ -36,12 +36,11 @@ public class MathPanel extends JPanel {
 								// of the math problem
 	private JTextField fieldAnswer; // variable that holds whatever the user
 									// enters in the TextField
-	private long solveTime;
-
-	private long startTime;
+	private long solveTime;     //These 3 variables are used to calculate the time 
+	private long startTime;     //to solve each math problem
 	private long current;
 
-	private MathEngine math;
+	private MathEngine math;    //math variable for each instance of MathEngine
 	private ImageComponent imageComponent;
 	
 	JLabel problemLabel;
@@ -49,6 +48,7 @@ public class MathPanel extends JPanel {
 	JLabel textfieldLabel;
 	JButton enterButton;
 
+	//Constructor
 	public MathPanel(ImageComponent ic) {
 		imageComponent = ic;
 		math = new MathEngine(ic.viewer.selectedNumber, ic.viewer.isAddSubtract);
@@ -56,6 +56,7 @@ public class MathPanel extends JPanel {
 		mathAnswer = math.getAnswer();
 	}
 
+	//Method to create a JPanel for each split image
 	public JPanel showPanel() {
 
 		this.setLayout(new GridLayout(4, 1));
@@ -72,6 +73,8 @@ public class MathPanel extends JPanel {
 		textfieldLabel = new JLabel("Enter answer: ", SwingConstants.RIGHT);
 		fieldAnswer = new JTextField();
 		fieldAnswer.setPreferredSize(new Dimension(200, 20));
+		
+		//Creates a KeyListener for the user to press enter to submit their answer
 		fieldAnswer.addKeyListener(new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {				
