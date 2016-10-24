@@ -25,6 +25,7 @@ public class Viewer {
 	private List<Long> times;
 	private int wins;
 	private int losses;
+	private JPanel resultPanel;
 
 	public Viewer() {
 		// Instantiate JFrame
@@ -32,14 +33,19 @@ public class Viewer {
 
 		// Set initial properties
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new BorderLayout());
+		
+		//add result panel
+		resultPanel = new JPanel();
+		frame.add(resultPanel, BorderLayout.PAGE_START);
 
 		// Add menu
 		frame.setJMenuBar(new ViewerMenu().menu(this));
-
+		
 		// Add container for all image components
 		panelContainer = new JPanel();
 		panelContainer.setPreferredSize(new Dimension(1200, 800));
-		frame.add(panelContainer);
+		frame.add(panelContainer, BorderLayout.CENTER);
 
 		// Show it
 		frame.setVisible(true);
@@ -88,12 +94,11 @@ public class Viewer {
 
 	public void showResults() {
 		
-		if (wins + losses == selectedNumberOfPanels) {
-			JPanel answerResults = new JPanel();
-			JLabel label = new JLabel("Total answered Correctly: " + wins + "\nTotal time to finish: " + times);
-			answerResults.add(label);
-			frame.add(answerResults, BorderLayout.CENTER);
-			
+		if (wins + losses == selectedNumberOfPanels) {			
+			JLabel label = new JLabel("Total answered correctly: " + wins + "; Total time to finish: " + getAverageElapsedTime() + "ms");
+			resultPanel.removeAll();
+			resultPanel.add(label);
+			frame.repaint();
 		}
 	}
 
